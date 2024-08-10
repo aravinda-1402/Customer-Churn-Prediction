@@ -13,7 +13,7 @@ The project uses a logistic regression model to predict customer churn based on 
 
 ## 🛠 Pipeline Visualization
 
-![Pipeline](pipeline.png)
+![Pipeline](Pipeline.png)
 
 The pipeline follows a simple yet effective workflow: it starts by downloading the dataset, then moves on to training the model, and finally completes the process. Each task is managed and orchestrated by Apache Airflow, ensuring smooth and automated execution.
 ## 🔧 Technologies & Tools
