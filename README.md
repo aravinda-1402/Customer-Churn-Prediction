@@ -11,6 +11,11 @@ The project uses a logistic regression model to predict customer churn based on 
 - **AWS Integration**: The project leverages AWS services such as S3 and SageMaker to perform model training in a scalable and efficient environment.
 - **Dockerized Environment**: The project environment is fully containerized using Docker, ensuring easy setup and consistent performance across different environments.
 
+## 🛠 Pipeline Visualization
+
+![Pipeline](pipeline.png)
+
+The pipeline follows a simple yet effective workflow: it starts by downloading the dataset, then moves on to training the model, and finally completes the process. Each task is managed and orchestrated by Apache Airflow, ensuring smooth and automated execution.
 ## 🔧 Technologies & Tools
 
 - **Python**: The core language used for data processing and model building.
