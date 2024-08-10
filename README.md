@@ -56,7 +56,7 @@ Ensure the following are installed on the local machine:
 
 ```bash
 git clone https://github.com/aravinda-1402/Customer-Churn-Prediction.git
-cd Customer-Churn-Prediction
+cd Customer-Churn-Prediction/airflow
 ```
 Build and run the Docker containers:
 ```
