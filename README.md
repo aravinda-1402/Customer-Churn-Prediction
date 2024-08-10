@@ -99,7 +99,7 @@ The Flask app is deployed as a Docker container and serves the predictions based
 2. Access the Web Interface: Navigate to http://localhost:5000 in the browser to access the prediction interface.
 
 <div style="text-align: center;">
-  <img src="UI.png" alt="Pipeline" width="80%">
+  <img src="UI.png" alt="Pipeline" width="100%">
 </div>
 
 ## 📊 Results & Evaluation
