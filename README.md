@@ -36,7 +36,7 @@ Customer Churn Prediction Project/
 ├── airflow/
 │   ├── dags/
 │   │   └── churn_prediction_dag.py  # Airflow DAG definition
-|   |   └── docker-compose.yml # Configuration for running Airflow and other services
+|   |   └── docker-compose.yaml # Configuration for running Airflow and other services
 ├── train.py               # Model training script 
 └── README.md              # Project documentation (you're reading it now!)
 ```
