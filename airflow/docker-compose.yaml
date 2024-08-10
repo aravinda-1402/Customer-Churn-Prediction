@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+
+  airflow:
+    image: apache/airflow:2.5.0
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AWS_ACCESS_KEY_ID=your-access-key-id  # Redacted
+      - AWS_SECRET_ACCESS_KEY=your-secret-access-key  # Redacted
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    entrypoint: bash -c "pip install apache-airflow-providers-amazon && airflow db init && airflow users create --username admin --password admin --firstname admin --lastname user --role Admin --email admin@example.com && airflow webserver"
+
+  scheduler:
+    image: apache/airflow:2.5.0
+    command: airflow scheduler
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AWS_ACCESS_KEY_ID=your-access-key-id  # Redacted
+      - AWS_SECRET_ACCESS_KEY=your-secret-access-key  # Redacted
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    depends_on:
+      - airflow
+
+volumes:
+  postgres-db-volume:
