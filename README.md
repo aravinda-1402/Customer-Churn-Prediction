@@ -7,9 +7,10 @@ This project leverages machine learning to predict customer churn, a critical ta
 The project uses a logistic regression model to predict customer churn based on various features extracted from a dataset. The model is trained using the data provided in the `WA_Fn-UseC_-Telco-Customer-Churn.csv` file, including tenure, monthly charges, total charges, and various other customer attributes.
 
 ### Key Features:
-- **End-to-End Pipeline**: The project includes an end-to-end pipeline managed with Apache Airflow, from data extraction and preprocessing to model training and deployment.
+- **End-to-end Pipeline**: The project includes an end-to-end pipeline managed with Apache Airflow, from data extraction and preprocessing to model training and deployment.
 - **AWS Integration**: The project leverages AWS services such as S3 and SageMaker to perform model training in a scalable and efficient environment.
 - **Dockerized Environment**: The project environment is fully containerized using Docker, ensuring easy setup and consistent performance across different environments.
+- **Flask Application**: A Flask web application is included to serve predictions, making the model accessible through a simple web interface.
 
 ## 🛠 Pipeline Visualization
 
@@ -17,7 +18,8 @@ The project uses a logistic regression model to predict customer churn based on 
   <img src="Pipeline.png" alt="Pipeline" width="60%">
 </div>
 
-The pipeline follows a simple yet effective workflow: it starts by downloading the dataset, then moves on to training the model, and finally completes the process. Each task is managed and orchestrated by Apache Airflow, ensuring smooth and automated execution.
+The pipeline follows a simple yet effective workflow: it starts by downloading the dataset, then moves on to training the model, and finally, a Flask application is deployed to serve predictions. Each task is managed and orchestrated by Apache Airflow, ensuring smooth and automated execution.
+
 ## 🔧 Technologies & Tools
 
 - **Python**: The core language used for data processing and model building.
@@ -26,6 +28,7 @@ The pipeline follows a simple yet effective workflow: it starts by downloading t
 - **Apache Airflow**: Workflow management platform for orchestrating the pipeline.
 - **AWS S3 & SageMaker**: Used for storing data and running machine learning jobs in the cloud.
 - **Docker**: Containerization of the environment to ensure consistent execution.
+- **Flask**: A lightweight web framework for serving predictions.
 - **GitHub**: Version control and collaboration platform.
 
 ## 📁 Project Structure
@@ -36,10 +39,19 @@ Customer Churn Prediction Project/
 ├── airflow/
 │   ├── dags/
 │   │   └── churn_prediction_dag.py  # Airflow DAG definition
-|   |   └── docker-compose.yaml      # Configuration for running Airflow and other services
+│   └── docker-compose.yaml          # Configuration for running Airflow and other services
+├── flask_app/                       # Flask application for serving predictions
+│   ├── static/
+│   │   └── styles.css               # CSS for the web interface
+│   ├── templates/
+│   │   └── index.html               # HTML template for the web interface
+│   ├── app.py                       # Flask application script
+│   ├── Dockerfile                   # Docker configuration for the Flask app
+│   └── requirements.txt             # Python dependencies for the Flask app
 ├── train.py                         # Model training script
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset
 └── README.md                        # Project documentation (you're reading it now!)
+               # Project documentation (you're reading it now!)
 ```
 ## 🚀 Getting Started
 
@@ -79,6 +91,12 @@ The model training is handled within the `train_model` task in the Airflow DAG. 
 * Preprocesses the data (handling missing values, encoding categorical variables, etc.).
 * Trains a logistic regression model.
 * Uploads the trained model back to S3 for future predictions.
+
+## 🌐 Deploying the Flask App
+The Flask app is deployed as a Docker container and serves the predictions based on the trained model:
+
+1. Run the Flask App: The app can be run manually using Docker or automatically as part of the Airflow pipeline.
+2. Access the Web Interface: Navigate to http://localhost:5000 in the browser to access the prediction interface.
 
 ## 📊 Results & Evaluation
 Once the model is trained, it will be stored in the `model-output/` directory in the specified S3 bucket. The model's performance can be evaluated based on accuracy, precision, recall, and F1-score using standard classification metrics in scikit-learn.
