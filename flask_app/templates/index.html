@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Customer Churn Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="tenure">Tenure:</label>
+        <input type="text" id="tenure" name="tenure" required><br><br>
+
+        <label for="MonthlyCharges">Monthly Charges:</label>
+        <input type="text" id="MonthlyCharges" name="MonthlyCharges" required><br><br>
+
+        <label for="TotalCharges">Total Charges:</label>
+        <input type="text" id="TotalCharges" name="TotalCharges" required><br><br>
+
+        <div class="radio-group">
+            <label>Gender:</label>
+            <label for="gender_male">Male</label>
+            <input type="radio" id="gender_male" name="gender" value="Male" required>
+            <label for="gender_female">Female</label>
+            <input type="radio" id="gender_female" name="gender" value="Female" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Senior Citizen:</label>
+            <label for="SeniorCitizen_yes">Yes</label>
+            <input type="radio" id="SeniorCitizen_yes" name="SeniorCitizen" value="Yes" required>
+            <label for="SeniorCitizen_no">No</label>
+            <input type="radio" id="SeniorCitizen_no" name="SeniorCitizen" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Partner:</label>
+            <label for="Partner_yes">Yes</label>
+            <input type="radio" id="Partner_yes" name="Partner" value="Yes" required>
+            <label for="Partner_no">No</label>
+            <input type="radio" id="Partner_no" name="Partner" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Dependents:</label>
+            <label for="Dependents_yes">Yes</label>
+            <input type="radio" id="Dependents_yes" name="Dependents" value="Yes" required>
+            <label for="Dependents_no">No</label>
+            <input type="radio" id="Dependents_no" name="Dependents" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Phone Service:</label>
+            <label for="PhoneService_yes">Yes</label>
+            <input type="radio" id="PhoneService_yes" name="PhoneService" value="Yes" required>
+            <label for="PhoneService_no">No</label>
+            <input type="radio" id="PhoneService_no" name="PhoneService" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Multiple Lines:</label>
+            <label for="MultipleLines_yes">Yes</label>
+            <input type="radio" id="MultipleLines_yes" name="MultipleLines" value="Yes" required>
+            <label for="MultipleLines_no">No</label>
+            <input type="radio" id="MultipleLines_no" name="MultipleLines" value="No" required><br><br>
+        </div>
+
+        <label for="InternetService">Internet Service:</label>
+        <select id="InternetService" name="InternetService" required>
+            <option value="DSL">DSL</option>
+            <option value="Fiber optic">Fiber optic</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <div class="radio-group">
+            <label>Online Security:</label>
+            <label for="OnlineSecurity_yes">Yes</label>
+            <input type="radio" id="OnlineSecurity_yes" name="OnlineSecurity" value="Yes" required>
+            <label for="OnlineSecurity_no">No</label>
+            <input type="radio" id="OnlineSecurity_no" name="OnlineSecurity" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Online Backup:</label>
+            <label for="OnlineBackup_yes">Yes</label>
+            <input type="radio" id="OnlineBackup_yes" name="OnlineBackup" value="Yes" required>
+            <label for="OnlineBackup_no">No</label>
+            <input type="radio" id="OnlineBackup_no" name="OnlineBackup" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Device Protection:</label>
+            <label for="DeviceProtection_yes">Yes</label>
+            <input type="radio" id="DeviceProtection_yes" name="DeviceProtection" value="Yes" required>
+            <label for="DeviceProtection_no">No</label>
+            <input type="radio" id="DeviceProtection_no" name="DeviceProtection" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Tech Support:</label>
+            <label for="TechSupport_yes">Yes</label>
+            <input type="radio" id="TechSupport_yes" name="TechSupport" value="Yes" required>
+            <label for="TechSupport_no">No</label>
+            <input type="radio" id="TechSupport_no" name="TechSupport" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Streaming TV:</label>
+            <label for="StreamingTV_yes">Yes</label>
+            <input type="radio" id="StreamingTV_yes" name="StreamingTV" value="Yes" required>
+            <label for="StreamingTV_no">No</label>
+            <input type="radio" id="StreamingTV_no" name="StreamingTV" value="No" required><br><br>
+        </div>
+
+        <div class="radio-group">
+            <label>Streaming Movies:</label>
+            <label for="StreamingMovies_yes">Yes</label>
+            <input type="radio" id="StreamingMovies_yes" name="StreamingMovies" value="Yes" required>
+            <label for="StreamingMovies_no">No</label>
+            <input type="radio" id="StreamingMovies_no" name="StreamingMovies" value="No" required><br><br>
+        </div>
+
+        <label for="Contract">Contract:</label>
+        <select id="Contract" name="Contract" required>
+            <option value="Month-to-month">Month-to-month</option>
+            <option value="One year">One year</option>
+            <option value="Two year">Two year</option>
+        </select><br><br>
+
+        <div class="radio-group">
+            <label>Paperless Billing:</label>
+            <label for="PaperlessBilling_yes">Yes</label>
+            <input type="radio" id="PaperlessBilling_yes" name="PaperlessBilling" value="Yes" required>
+            <label for="PaperlessBilling_no">No</label>
+            <input type="radio" id="PaperlessBilling_no" name="PaperlessBilling" value="No" required><br><br>
+        </div>
+
+        <label for="PaymentMethod">Payment Method:</label>
+        <select id="PaymentMethod" name="PaymentMethod" required>
+            <option value="Electronic check">Electronic check</option>
+            <option value="Mailed check">Mailed check</option>
+            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+            <option value="Credit card (automatic)">Credit card (automatic)</option>
+        </select><br><br>
+
+        <input type="submit" value="Predict Churn">
+    </form>
+    
+    {% if prediction_text %}
+    <h2>{{ prediction_text }}</h2>
+    {% endif %}
+</body>
+</html>
