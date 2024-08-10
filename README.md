@@ -15,7 +15,7 @@ The project uses a logistic regression model to predict customer churn based on 
 ## 🛠 Pipeline Visualization
 
 <div style="text-align: center;">
-  <img src="Pipeline.png" alt="Pipeline" width="65%">
+  <img src="Pipeline.png" alt="Pipeline" width="80%">
 </div>
 
 The pipeline follows a simple yet effective workflow: it starts by downloading the dataset, then moves on to training the model, and finally, a Flask application is deployed to serve predictions. Each task is managed and orchestrated by Apache Airflow, ensuring smooth and automated execution.
