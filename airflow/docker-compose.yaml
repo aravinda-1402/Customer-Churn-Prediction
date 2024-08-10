@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+
+  docker:
+    image: docker:20.10.7-dind
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: ''
+    volumes:
+      - docker-data:/var/lib/docker
+    ports:
+      - "2375:2375"  # Expose Docker API on port 2375
+
+  airflow:
+    image: apache/airflow:2.5.0
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AWS_ACCESS_KEY_ID=        # Add your actual AWS Access Key ID here
+      - AWS_SECRET_ACCESS_KEY=  # Add your actual AWS Secret Access Key here
+      - AWS_DEFAULT_REGION=us-east-1  # Add this line to set the AWS region
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount the Docker socket
+    depends_on:
+      - postgres
+      - docker
+    ports:
+      - "8080:8080"
+    entrypoint: bash -c "pip install apache-airflow-providers-amazon && airflow db init && airflow users create --username admin --password admin --firstname admin --lastname user --role Admin --email admin@example.com && airflow webserver"
+
+  scheduler:
+    image: apache/airflow:2.5.0
+    command: airflow scheduler
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AWS_ACCESS_KEY_ID=        # Add your actual AWS Access Key ID here
+      - AWS_SECRET_ACCESS_KEY=  # Add your actual AWS Secret Access Key here
+      - AWS_DEFAULT_REGION=us-east-1  # Add this line to set the AWS region
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount the Docker socket
+    depends_on:
+      - airflow
+      - docker
+
+volumes:
+  postgres-db-volume:
+  docker-data:
