@@ -98,6 +98,10 @@ The Flask app is deployed as a Docker container and serves the predictions based
 1. Run the Flask App: The app can be run manually using Docker or automatically as part of the Airflow pipeline.
 2. Access the Web Interface: Navigate to http://localhost:5000 in the browser to access the prediction interface.
 
+<div style="text-align: center;">
+  <img src="UI.png" alt="Pipeline" width="80%">
+</div>
+
 ## 📊 Results & Evaluation
 Once the model is trained, it will be stored in the `model-output/` directory in the specified S3 bucket. The model's performance can be evaluated based on accuracy, precision, recall, and F1-score using standard classification metrics in scikit-learn.
 
