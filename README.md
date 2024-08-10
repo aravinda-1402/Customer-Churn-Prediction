@@ -1,6 +1,6 @@
 # Customer Churn Prediction 🚀
 
-Welcome to the **Customer Churn Prediction** project! This project leverages machine learning to predict customer churn, a critical task for businesses aiming to retain their customers. Businesses can take proactive steps to improve customer satisfaction and reduce churn rates by predicting which customers are likely to leave.
+This project leverages machine learning to predict customer churn, a critical task for businesses aiming to retain their customers. Businesses can take proactive steps to improve customer satisfaction and reduce churn rates by predicting which customers are likely to leave.
 
 ## 🌟 Project Overview
 
