@@ -11,6 +11,7 @@ The project uses a logistic regression model to predict customer churn based on 
 - **AWS Integration**: The project leverages AWS services such as S3 and SageMaker to perform model training in a scalable and efficient environment.
 - **Dockerized Environment**: The project environment is fully containerized using Docker, ensuring easy setup and consistent performance across different environments.
 - **Flask Application**: A Flask web application is included to serve predictions, making the model accessible through a simple web interface.
+- **REST API**: The project provides a REST API endpoint for making predictions programmatically, enabling easy integration with other applications.
 
 ## 🛠 Pipeline Visualization
 
@@ -102,10 +103,53 @@ The Flask app is deployed as a Docker container and serves the predictions based
   <img src="UI.png" alt="Pipeline" width="100%">
 </div>
 
+## 🌐 Using the REST API
+
+In addition to the web interface, the project also exposes a REST API for making predictions programmatically. This API can be accessed at the following endpoint:
+
+**Endpoint**: `/api/predict`
+
+**Method**: `POST`
+
+**Content-Type**: `application/json`
+
+**Request Body Example**:
+```json
+{
+  "tenure": 12,
+  "MonthlyCharges": 70.5,
+  "TotalCharges": 800,
+  "gender": "Male",
+  "SeniorCitizen": 0,
+  "Partner": "Yes",
+  "Dependents": "No",
+  "PhoneService": "Yes",
+  "MultipleLines": "No",
+  "InternetService": "Fiber optic",
+  "OnlineSecurity": "No",
+  "OnlineBackup": "Yes",
+  "DeviceProtection": "Yes",
+  "TechSupport": "No",
+  "StreamingTV": "No",
+  "StreamingMovies": "No",
+  "Contract": "Month-to-month",
+  "PaperlessBilling": "Yes",
+  "PaymentMethod": "Electronic check"
+}
+```
+**Response Example**:
+```
+{
+  "prediction": 1  // 1 indicates the customer is likely to churn, 0 indicates they are not
+}
+```
+
+**Accessing the API**:
+You can access the API by making a POST request to `http://localhost:5000/api/predict` with the appropriate JSON payload.
+
 ## 📊 Results & Evaluation
 Once the model is trained, it will be stored in the `model-output/` directory in the specified S3 bucket. The model's performance can be evaluated based on accuracy, precision, recall, and F1-score using standard classification metrics in scikit-learn.
 
 ## 💡 Future Work
 * Model Improvement: Experiment with other models like Random Forest, Gradient Boosting, or even deep learning models to improve performance.
 * Hyperparameter Tuning: Implement hyperparameter tuning using GridSearchCV or RandomizedSearchCV.
-* Real-Time Prediction Service: Develop a real-time prediction API using Flask or FastAPI and deploy it on AWS Lambda or EC2.
