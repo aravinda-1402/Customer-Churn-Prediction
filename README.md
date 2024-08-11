@@ -120,7 +120,7 @@ In addition to the web interface, the project also exposes a REST API for making
   "MonthlyCharges": 70.5,
   "TotalCharges": 800,
   "gender": "Male",
-  "SeniorCitizen": 0,
+  "SeniorCitizen": "No",
   "Partner": "Yes",
   "Dependents": "No",
   "PhoneService": "Yes",
